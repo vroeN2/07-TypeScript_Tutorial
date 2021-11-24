@@ -1,38 +1,46 @@
-// ARRAYS
-let names = ['luigi', 'mario', 'yoshi'];
-// names is an array from now on, so it can be changed into a string or number. 
+// explicit types
+// sometimes we want to create specific variable, but we don't want to assign any value to it yet. this is the solution:
+let caracter : string;
+let age: number;
+let isLoggedIn: boolean;
 
-names.push('toad'); // ok
-// names.push(3) // error - '3' is not a string
-// names[0] = 3; // also error
+//age = 'luigi'; // error
+age = 30; // ok
 
-let numbers = [10, 20, 30, 40];
-// numbers.push('shaun'); // error - 'shaun' is not a number
-// number[1] = 'shaun', // same as above
+//isLoggedIn = 25; // error
+isLoggedIn = true; // ok
 
-// if we need an array with different value types, we have to declare that at start:
-let mixed = ['ken', 4, 'chun-li', 8, 9];
+// arrays
+let ninjas: string[];
+// but if we want to initialize an empty array (for example to use 'push' method), we should do this:
+let raveners: string[] = [];
 
-mixed.push('ryu');
-mixed.push(10);
-mixed[0] = 3; // was a string, is a numbner now
+ninjas.push('test'); // error - in browser console, it is not an array yet.
+raveners.push('test'); //ok
 
+// union types
 
-// OBJECTS
-let ninja = {
-    name: 'mario',
-    belt: 'black',
-    age: 30
+// how about mixed array?
+let mixed: (string|number)[] = [];
+
+mixed.push('hello'); //ok
+mixed.push(21); //ok
+// mixed.push(true); // error
+
+let uid: string|number;
+uid = '123'; // ok
+uid = 123; //ok
+// uid = true; //error
+
+// objects
+let ravenOne: object;
+ravenOne = { name: 'yoshi', age: 30 }; // ok
+ravenOne = ['test']; // also ok - an array is special kind of object ;)
+
+let ravenTwo: {
+    name: string,
+    age: number,
+    beltColour: string
 };
 
-ninja.age = 40; // ok
-ninja.name = 'ryu'; // ok
-// ninja.age = '30'; // not ok - string is NaN
-// ninja.skills = ['fightning', 'sneaking']; // not ok - there was no 'skills' property in object declaration, thus we can't add it now
-
-// once we declare something, it has to have the same structure:
-ninja = {
-    name: 'yoshi',
-    belt: 'orange',
-    age: 40
-}; // is ok - values might differ, but propertioes remains the same
+ravenTwo = { name: 'mario', age: 20, beltColour: 'black' } // ok
