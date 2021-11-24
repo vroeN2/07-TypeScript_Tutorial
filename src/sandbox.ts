@@ -1,40 +1,16 @@
-let greet: Function;
-// capital 'F' - again, we assign 'greet' type.
+// to avoid very long declarations, we can assign a type to variable first, and then use that variable as type for function required variables:
 
-greet = () => {
-    console.log('hello, world');
+type stringOrNum = string | number;
+type objWithName = { name: string, uid: stringOrNum };
+
+const logDetails = (uid: stringOrNum, item: string) => {
+    console.log(`${item} has a uid of  ${uid}`);
 }
 
-// function with 3 arguments, but the last one is optional - that's what '?' is for.
-const add = (a: number, b: number, c?: number | string) => {
-    console.log(a + b);
-    console.log(c); // expected output: undefined
+const greet = (user: objWithName) => {
+    console.log(`${user.name} says hello`);
 }
 
-add(5, 10);
-
-// we can also add default value to 'c':
-const add2 = (a: number, b: number, c: number | string = 10) => {
-    console.log(a + b);
-    console.log(c); // expected output: 10
+const greetAgain = (user: objWithName) => {
+    console.log(`${user.name} says hello`);
 }
-// but then we remove '?' - optional mark - we don't use both at the same time for the same variable.
-
-add2(5, 10);
-
-// ! IMPORTANT ! 
-// optional or default parameter should always go as the last one - if we put it not at the end, things might get mixed up
-
-
-const minus = (a: number, b: number) => {
-    return a - b;
-}
-let result = minus(10, 7); // this will; make 'result' a number - since we returned a number from 'minus' function.
-
-// we can also declare the type of a function:
-const minus2 = (a: number, b: number): number => {
-    return a - b;
-}
-// it is not necessary, but sometimes might be helpful for other devs, especially with larger functions
-
-// if we return nothing from a function (like both 'add' functions), a function still returns a value - a value called 'void', which represents complete lack of returned value. When it's compiled into JS, it will become 'undefined', but in TS it is 'void'
