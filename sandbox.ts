@@ -1,23 +1,38 @@
-// most importan difference between JS and TS is that TS uses strict types, while JS don't.
+// ARRAYS
+let names = ['luigi', 'mario', 'yoshi'];
+// names is an array from now on, so it can be changed into a string or number. 
 
-let character = 'mario';
-let age = 30;
-let isBlackBelt = false;
+names.push('toad'); // ok
+// names.push(3) // error - '3' is not a string
+// names[0] = 3; // also error
 
-// expected output: error - type '20' is not assignable to type 'string'
-// character = 20; /
-character = 'luigi';
+let numbers = [10, 20, 30, 40];
+// numbers.push('shaun'); // error - 'shaun' is not a number
+// number[1] = 'shaun', // same as above
 
-// the same goes for other types:
-// age = 'yoshi'
-age = 40;
+// if we need an array with different value types, we have to declare that at start:
+let mixed = ['ken', 4, 'chun-li', 8, 9];
 
-// isBlackBelt= 'yes'
-isBlackBelt = true;
+mixed.push('ryu');
+mixed.push(10);
+mixed[0] = 3; // was a string, is a numbner now
 
-// we can define variable type used in a function
-const circ = (diameter: number) => {
-    return diameter * Math.PI;
-}
 
-console.log(circ(21)); 
+// OBJECTS
+let ninja = {
+    name: 'mario',
+    belt: 'black',
+    age: 30
+};
+
+ninja.age = 40; // ok
+ninja.name = 'ryu'; // ok
+// ninja.age = '30'; // not ok - string is NaN
+// ninja.skills = ['fightning', 'sneaking']; // not ok - there was no 'skills' property in object declaration, thus we can't add it now
+
+// once we declare something, it has to have the same structure:
+ninja = {
+    name: 'yoshi',
+    belt: 'orange',
+    age: 40
+}; // is ok - values might differ, but propertioes remains the same
