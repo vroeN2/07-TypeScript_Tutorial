@@ -20,39 +20,28 @@ form.addEventListener('submit', (e) => {
     }
     list.render(doc, type.value, 'end');
 });
-// GENERICS
-// // if we want to create function, that takes an object, and adds a random ID to it, we can start like this:
-// const addUID = (pbj: object) => {
-// // but then, we won't be able to access it's properties, like
-// console.log(docOne.name) // expected output: error
-// // it is because we can use any object here, so it can or cannot have a property called 'name'. To work around that, we can do it like this:
-// const addUID = <T>(obj: T) {
-// // and it will know all properties of the object. The new problem that appears here is that we can now use not only objects, but also any other type, for example
-// let docOne = addUID('hello);
-// // and we don't want that to be possible. We can then be more specific with T:
-// const addUID = <T extends object>(obj: T) {
-// // or even more specific, so now it has to be an object, but with 'name' property that has a string value:
-const addUID = (obj) => {
-    let uid = Math.floor(Math.random() * 100);
-    return Object.assign(Object.assign({}, obj), { uid });
-};
-let docOne = addUID({ name: 'yoshi', age: 40 });
-console.log(docOne);
-// with that, we can be more flexible:
-const docTwo = {
+// ENUMS
+// enums are something that can be called a book index - to avoid remembering (thus avoid making mistakew with bad memory) various types of resource type - let's say we want to create an item list, where each item type has different number associated with - 1 for book, 2 for movie, 3 for game, etc. it is easy to forget what number is associated with what category, and it is even harder when we add new ones or modify already exisdting order. That's where enums are handy
+// we just create a list of resource types:
+var ResourceType;
+(function (ResourceType) {
+    ResourceType[ResourceType["BOOK"] = 0] = "BOOK";
+    ResourceType[ResourceType["AUTHOR"] = 1] = "AUTHOR";
+    ResourceType[ResourceType["FILM"] = 2] = "FILM";
+    ResourceType[ResourceType["DIRECTOR"] = 3] = "DIRECTOR";
+})(ResourceType || (ResourceType = {}));
+;
+// thanks to that, we now have a tooltip list of all types from 'ResourceType' when we need that
+const docOne = {
     uid: 1,
-    resourceName: 'person',
-    data: 'string'
+    resourceType: ResourceType.BOOK,
+    data: { title: 'name of the wind' }
 };
-// or 
-const docThree = {
-    uid: 2,
-    resourceName: 'person 2',
-    data: { name: 'shaun' }
+const docTwo = {
+    uid: 10,
+    resourceType: ResourceType.DIRECTOR,
+    data: { title: 'name of the wind' }
 };
-const docFour = {
-    uid: 3,
-    resourceName: 'shoppingList',
-    data: ['bread', 'milk', 'butter']
-};
-console.log(docTwo, docThree, docFour);
+// and if we console log items, there will be no property name, but a number - property's table index number
+console.log(docOne);
+console.log(docTwo);
